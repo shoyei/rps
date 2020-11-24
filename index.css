@@ -1,0 +1,72 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Trebuchet MS", sans-serif;
+    background-color: #112f36;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff81;
+    text-align: center;
+    vertical-align: center;
+    width: 600px;
+    max-width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+    position: absolute;
+    margin: 20px;
+}
+
+.btn {
+    width: 20%;
+    height: 50px;
+    font-size: 20px;
+    margin: 0 5px 15px 5px;
+    border-radius: 20px;
+    background-color: #6e5783c2;
+    border: 0;
+}
+
+.btn:hover {
+    background-color: #4c3e5ac2;
+    transform: scale(1.05)
+    }
+
+.btn:active {
+  background-color: #4a6d4b;
+  transform: scale(.95);
+}
+
+#announce {
+    margin: 20px auto 10px;
+    font-size: 40px;
+    color: #112f36;
+}
+
+#score {
+    font-size: 25px;
+    background-color: #20376a;
+    color:#d9d9d9;
+    margin: 30px auto 0px;
+    width: 50%;
+    border-radius: 20px;
+    padding: 15px;
+}
+
+#roundcount {
+    margin: 10px auto 0px;
+    font-size: 17px;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    color:#d9d9d9;
+}
+

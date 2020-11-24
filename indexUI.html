@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+<head>
+    <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div id="announce">Welcome!</div>
+        <div id="score">Choose rock, paper, or scissors to start the game</div>
+        <div id="roundcount"></div>
+        <br>
+        <button id="rock" class="btn">👊</button>
+        <button id="paper" class="btn">✋</button>
+        <button id="scissors" class="btn">✌️</button>
+    </div>
+    <script>
+
+        // Init variable
+        let playerScore = 0;
+        let computerScore = 0;
+        let roundCount = 0;
+        let currentGame;
+        let maxRound = 5;
+        let maxScore = 3;
+        let canPlay = true;
+
+        //DOM Selectors
+        const announceDiv = document.querySelector("#announce");
+        const scoreDiv = document.querySelector("#score");
+        const rndCntDiv = document.querySelector("#roundcount");
+        
+        //Player chooses buttons rock, paper, or scissors
+        const rock = document.querySelector('#rock');
+        rock.addEventListener('click', () => {
+            playRound("rock", computerChoose());
+        });
+
+        const paper = document.querySelector('#paper');
+        paper.addEventListener('click', () => {
+            playRound("paper", computerChoose());
+        });
+
+        const scissors = document.querySelector('#scissors');
+        scissors.addEventListener('click', () => {
+            playRound("scissors", computerChoose());
+        });
+
+        //Randomized computer choice
+        function computerChoose() {
+            let choices = ['rock', 'paper', 'scissors'];
+            return choices[Math.floor(Math.random() * choices.length)];
+        }
+
+        // Compare results and choose a round winner 
+        //while advancing score and round then outputting to page.
+        //Game over after either 5 rounds, or either player reaches a score of 3.
+        function playRound(_playerSelection, _computerSelection) {
+            if (!canPlay){
+                return;
+            }
+            let _announcement
+            if ((_playerSelection == "rock" && _computerSelection == "scissors") ||
+                (_playerSelection == "paper" && _computerSelection == "rock") ||
+                (_playerSelection == "scissors" && _computerSelection == "paper")) {
+                playerScore++;
+                roundCount++;
+                _announcement = "You win! " + _playerSelection.charAt(0).toUpperCase() + _playerSelection.slice(1) + " beats " + _computerSelection.charAt(0).toUpperCase() + _computerSelection.slice(1);
+            }
+            else if ((_computerSelection == "rock" & _playerSelection == "scissors") ||
+                (_computerSelection == "paper" && _playerSelection == "rock") ||
+                (_computerSelection == "scissors" && _playerSelection == "paper")) {
+                computerScore++;
+                roundCount++;
+                _announcement = "You lose! " + _computerSelection.charAt(0).toUpperCase() + _computerSelection.slice(1) + " beats " + _playerSelection.charAt(0).toUpperCase() + _playerSelection.slice(1);
+            }
+            else if (_playerSelection == _computerSelection) {
+                _announcement = "It's a draw";
+            }
+            updateText(_announcement, playerScore, computerScore, roundCount);
+
+            if (playerScore == maxScore || roundCount == maxRound || computerScore == maxScore) {
+                gameOver()
+            }
+
+        }
+
+        // Updates text for game winner, pauses play to prohibit feedback before running resetting the game.
+        function gameOver() {
+            canPlay = false
+            if (playerScore == maxScore) {
+                updateText("Game Over, you win!", playerScore, computerScore, roundCount);
+            }
+            else if (computerScore == maxScore) {
+                updateText("Game Over, computer wins...", playerScore, computerScore, roundCount);
+            }
+            setTimeout(() => {
+                newGame();
+                canPlay = true;
+            }, 5000)
+        }
+
+        //Resets initial variables
+        function newGame() {
+            playerScore = 0;
+            computerScore = 0;
+            roundCount = 0;
+            updateText("Welcome back!", 0, 0, 0);
+        }
+        //Updates DOM with latest scores 
+        function updateText(_announcement, _playerScore, _computerScore, _roundCount) {
+            rndCntDiv.innerHTML = `Round # <br>${_roundCount}`;
+            scoreDiv.innerHTML = `You = ${_playerScore}<br> Computer = ${_computerScore}`;
+            announceDiv.textContent = _announcement
+
+        }
+
+    </script>
+</body>
+
+</html>
